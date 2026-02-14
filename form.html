@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Certificate QR Generator</title>
+    <style>
+        body {
+            background-color: #0f172a;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .card {
+            background-color: #1e293b;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            color: #38bdf8;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
+        }
+
+        input[type="file"] {
+            background-color: white;
+            color: black;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #38bdf8;
+            border: none;
+            border-radius: 5px;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0ea5e9;
+        }
+
+        img {
+            margin-top: 20px;
+            border: 5px solid white;
+            border-radius: 10px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background-color: #22c55e;
+            color: black;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background-color: #16a34a;
+        }
+
+        pre {
+            text-align: left;
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <h2>Government Certificate QR Generator</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <input name="name" placeholder="Applicant Name" required>
+        <input name="father" placeholder="Father Name / Husband Name" required>
+        <input name="gsc" placeholder="GSC Number" required>
+        <input name="address" placeholder="Present Address" required>
+        <input name="verification" placeholder="Verification Type" required>
+        <input name="validity" placeholder="Valid Till Date" required>
+
+        <br><br>
+        <label>Upload Certificate PDF</label><br>
+        <input type="file" name="pdf" accept="application/pdf" required>
+
+        <br><br>
+        <button type="submit">Generate QR Code</button>
+
+    </form>
+
+    {% if qr_image %}
+        <hr>
+        <h3>QR Code Generated</h3>
+        <img src="{{ qr_image }}" width="200">
+
+        <br>
+
+        <!-- Download QR Button -->
+        <a href="{{ qr_image }}" download class="download-btn">
+            Download QR Code
+        </a>
+    {% endif %}
+
+    {% if certificate_text %}
+        <hr>
+        <h3>Certificate Information:</h3>
+        <pre>{{ certificate_text }}</pre>
+
+        <h4>Google Search Link:</h4>
+        <a href="{{ google_link }}" target="_blank">
+            {{ google_link }}
+        </a>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
